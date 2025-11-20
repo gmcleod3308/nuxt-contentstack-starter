@@ -1,0 +1,27 @@
+{
+	"name": "EmptyContentStackTestProject",
+	"type": "module",
+	"private": true,
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare",
+		"start": "node .output/server/index.mjs"
+	},
+	"dependencies": {
+		"@nuxt/image": "latest",
+		"bootstrap": "^5.3.8",
+		"contentstack": "^3.26.2",
+		"curtainsjs": "^8.1.6",
+		"dotenv": "^16.0.0",
+		"gsap": "^3.13.0",
+		"nuxt": "^4.2.1",
+		"vue": "^3.5.24",
+		"vue-router": "^4.6.3"
+	},
+	"devDependencies": {
+		"@types/node": "^24.10.1"
+	}
+}
