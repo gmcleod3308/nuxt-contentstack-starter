@@ -1,4 +1,3 @@
-import { NuxtLink } from '../../.nuxt/components';
 <template>
 	<div>
 		<div class="cyber-grid"></div>
@@ -16,7 +15,14 @@ import { NuxtLink } from '../../.nuxt/components';
 
 							</div>
 							<div class="d-flex gap-3 justify-content-center flex-wrap">
-								<NuxtLink :to="button.link.href" v-for="button in buttons" class="btn" :class="button.style_class">{{button.link.title}}</NuxtLink>
+								<NuxtLink 
+								v-for="button in buttons" 
+								:to="button.link.href" 
+								:key="button.link?.href || button.link?.title" 
+								class="btn" 
+								:class="button.style_class">
+									{{button.link.title}}
+								</NuxtLink>
 							</div>
 						</div>
 					</div>
@@ -26,7 +32,10 @@ import { NuxtLink } from '../../.nuxt/components';
 			<section class="py-5">
 				<div class="container">
 					<div class="row g-4">
-						<div v-for="service in services" class="col-md-4">
+						<div 
+						v-for="service in services" 
+						:key="service.uid || service.service_title" 
+						class="col-md-4">
 							<div class="card cyber-card h-100">
 								<div class="card-body text-center">
 									<div class="cyber-icon mb-3">{{service.service_icon}}</div>
@@ -51,16 +60,15 @@ const { data, error, pending, status } = await useFetch('/api/content', {
 	}
 });
 
-const entry = computed(()=>{return data.value ? data.value.entry : null});
-const heroHeading = computed(()=>{return entry.value ? entry.value.hero_heading : null});
-const openingMessage = computed(()=>{return entry.value ? entry.value.opening_message : null});
-const services = computed(()=>{return entry.value ? entry.value.services : null});
-const buttons = computed(()=>{return entry.value ? entry.value.buttons : null});
+const entry = computed(() => data.value?.entry ?? null);
+
+const heroHeading = computed(() => entry.value?.hero_heading ?? null);
+const openingMessage = computed(() => entry.value?.opening_message ?? null);
+const services = computed(() => entry.value?.services ?? []);
+const buttons = computed(() => entry.value?.buttons ?? []);
 
 onMounted(()=>{
 	loaded.value = true;
-	console.log(buttons.value);
-	console.log(services.value);
 })
 
 </script>
