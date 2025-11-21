@@ -1,6 +1,6 @@
 <template>
 	<div class="loading-spinner">
-<i class="fa-sharp-duotone fa-solid fa-grid-round-2 spinner-icon"></i>
+		<i class="fa-sharp-duotone fa-solid fa-grid-round-2 spinner-icon"></i>
 	</div>
 </template>
 

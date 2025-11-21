@@ -36,7 +36,10 @@
                         <div class="card-body">
                             <h2 class="card-title mb-4">Tech Stack</h2>
                             <ul class="list-group list-group-flush cyber-list">
-                                <li v-for="tech in techStack" class="list-group-item">
+                                <li 
+                                v-for="tech in techStack" 
+                                :key="tech.title"
+                                class="list-group-item">
                                     <span class="skill-marker">▸</span> {{ tech.title}}
                                 </li>
                             </ul>
@@ -47,7 +50,10 @@
                     <div class="card cyber-card h-100">
                         <div class="card-body">
                             <h2 class="card-title mb-4">Similar Projects</h2>
-                            <div class="mb-4" v-for="project in similarProjects">
+                            <div
+                            v-for="project in similarProjects"
+                            :key="project.title"
+                            class="mb-4" >
                                 <h5 class="cyber-text">{{project.title}}</h5>
                                 <p class="mb-2">{{project.description}}</p>
                                 <span v-for="tag in project.tag_group" class="badge bg-cyber">{{tag.label}}</span>
@@ -70,13 +76,16 @@ const { data, error, pending, status } = await useFetch('/api/content', {
 	}
 });
 
-const entry = computed(()=>{return data.value ? data.value.entry : null});
-const headshot = computed(()=>{return entry.value ? entry.value.headshot : null});
-const mainHeadline = computed(()=>{return entry.value ? entry.value.main_headline : null});
-const openingStatement = computed(()=>{return entry.value ? entry.value.opening_statement : null});
-const openingStatementHeadline = computed(()=>{return entry.value ? entry.value.opening_statement_headline : null});
-const similarProjects = computed(()=>{return entry.value ? entry.value.similar_projects : null});
-const techStack = computed(()=>{return entry.value ? entry.value.tech_stack : null});
+const entry = computed(() => data.value?.entry ?? null);
+
+const headshot = computed(()=>{return entry.value?.headshot ?? null});
+const mainHeadline = computed(() => entry.value?.main_headline ?? null);
+const openingStatement = computed(() => entry.value?.opening_statement ?? null);
+const openingStatementHeadline = computed(
+	() => entry.value?.opening_statement_headline ?? null
+);
+const similarProjects = computed(() => entry.value?.similar_projects ?? []);
+const techStack = computed(() => entry.value?.tech_stack ?? []);
 
 
 onMounted(()=>{
