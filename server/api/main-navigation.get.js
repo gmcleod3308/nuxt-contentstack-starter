@@ -3,6 +3,7 @@ import { createContentstackStack } from '../utils/contentstack';
 
 export default defineEventHandler(async (event) => {
 	try {
+		
 		const Stack = createContentstackStack();
 
 		const data = await Stack.sync({ init: true, query: { tags: "MainNavigationPage" } });
@@ -13,6 +14,7 @@ export default defineEventHandler(async (event) => {
 		})
 
 		return {entries};
+
 	} catch (err) {
 		console.error('Contentstack error in /api/main-navigation:', err);
 		setResponseStatus(event, 500);
