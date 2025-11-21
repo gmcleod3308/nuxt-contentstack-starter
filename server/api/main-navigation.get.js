@@ -1,4 +1,3 @@
-// server/api/main-navigation.get.js
 import { createContentstackStack } from '../utils/contentstack';
 
 export default defineEventHandler(async (event) => {
@@ -6,14 +5,28 @@ export default defineEventHandler(async (event) => {
 		
 		const Stack = createContentstackStack();
 
-		const data = await Stack.sync({ init: true, query: { tags: "MainNavigationPage" } });
+		const data = await Stack.sync({
+			init: true,
+			query: { tags: 'MainNavigationPage' }
+		});
 		
 		let entries = data.items;
-		entries = entries.filter((obj)=>{
-			return obj.type !== 'asset_published'
-		})
 
-		return {entries};
+		// keep only published entries
+		entries = entries.filter((obj) => {
+			return obj.type !== 'asset_published';
+		});
+
+		// sort by nav_position ASC
+		entries.sort((a, b) => {
+			const posA = a.data?.nav_position ?? 0;
+			const posB = b.data?.nav_position ?? 0;
+			return posA - posB;
+		});
+
+		console.log(entries);
+
+		return { entries };
 
 	} catch (err) {
 		console.error('Contentstack error in /api/main-navigation:', err);
@@ -24,3 +37,4 @@ export default defineEventHandler(async (event) => {
 		};
 	}
 });
+
