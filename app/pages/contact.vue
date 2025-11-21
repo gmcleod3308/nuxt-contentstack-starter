@@ -10,7 +10,10 @@
                     <div class="card cyber-card">
                         <div class="card-body p-4 p-md-5">
                             <form>
-                                <div v-for="field in formFields" class="mb-4">
+                                <div 
+                                v-for="field in formFields" 
+                                :key="field.label" 
+                                class="mb-4">
 									<div v-if="field.type === TEXT">
 										<label for="fullName" class="form-label cyber-text">{{field.label}}</label>
 										<input type="text" 
@@ -45,41 +48,6 @@
 									</div>
                                 </div>
 
-                                <!-- <div class="mb-4">
-                                    <label for="email" class="form-label cyber-text">Email Address</label>
-                                    <input type="email" 
-                                           class="form-control cyber-input" 
-                                           id="email" 
-                                           placeholder="your.email@example.com" 
-                                           required>
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="phone" class="form-label cyber-text">Phone Number</label>
-                                    <input type="tel" 
-                                           class="form-control cyber-input" 
-                                           id="phone" 
-                                           placeholder="+1 (555) 000-0000">
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="company" class="form-label cyber-text">Company</label>
-                                    <input type="text" 
-                                           class="form-control cyber-input" 
-                                           id="company" 
-                                           placeholder="Your company name">
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="message" class="form-label cyber-text">Message</label>
-                                    <textarea class="form-control cyber-input" 
-                                              id="message" 
-                                              rows="5" 
-                                              placeholder="Tell me about your project or inquiry..."
-                                              required></textarea>
-                                </div> -->
-
-
                                 <div class="form-check mb-4">
                                     <input class="form-check-input cyber-checkbox" 
                                            type="checkbox" 
@@ -95,12 +63,16 @@
                                         TRANSMIT MESSAGE
                                     </button>
                                 </div>
+
                             </form>
                         </div>
                     </div>
 
                     <div class="row mt-5 g-4">
-                        <div v-for="cp in contactPoints" class="col-md-4">
+                        <div 
+                        v-for="cp in contactPoints" 
+                        :key="cp.label"
+                        class="col-md-4">
                             <div class="card cyber-card h-100">
                                 <div class="card-body text-center">
                                     <div class="cyber-icon-small mb-2">{{cp.icon}}</div>
@@ -132,10 +104,10 @@ const EMAIL = "email";
 const PHONE = "phone";
 const LOCATION = "location";
 
-const entry = computed(()=>{return data.value ? data.value.entry : null});
-const mainHeadline = computed(()=>{return entry.value ? entry.value.main_headline : null});
-const formFields = computed(()=>{return entry.value ? entry.value.form_fields : null});
-const contactPoints = computed(()=>{return entry.value ? entry.value.contact_points : null});
+const entry = computed(()=>{return data.value?.entry ?? null});
+const mainHeadline = computed(()=>{return entry.value?.main_headline ?? null});
+const formFields = computed(()=>{return entry.value?.form_fields ?? null});
+const contactPoints = computed(()=>{return entry.value?.contact_points ?? null});
 
 onMounted(()=>{
 	loaded.value = true;
