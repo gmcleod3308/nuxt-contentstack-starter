@@ -1,6 +1,6 @@
 import { NuxtLink } from '../../.nuxt/components';
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav v-if="loaded" class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <NuxtLink class="navbar-brand cyber-text" to="/">Nuxt/ContentStack/Starter</NuxtLink>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -17,6 +17,7 @@ import { NuxtLink } from '../../.nuxt/components';
     </nav>
 </template>
 <script setup>
+
 	const { data, error } = await useFetch('/api/main-navigation');
 
 	const loaded = ref(false);
@@ -35,8 +36,8 @@ import { NuxtLink } from '../../.nuxt/components';
 
 	onMounted(()=>{
 		loaded.value = true;
-		console.log(navItems.value);
-	})
+	});
+
 </script>
 <style scoped>
 a.router-link-active{
